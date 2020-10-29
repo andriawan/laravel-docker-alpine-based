@@ -6,17 +6,13 @@ ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-a
 # make sure you can use HTTPS
 RUN apk --update add ca-certificates
 
-RUN echo "https://dl.bintray.com/php-alpine/v3.10/php-7.4" >> /etc/apk/repositories
-
 # Install packages
-RUN apk --no-cache add php musl php-fpm php-opcache php-openssl php-curl \
+RUN apk --no-cache add php php-fpm php-opcache php-openssl php-curl \
     nginx supervisor curl php-json php-phar php-iconv \
     php-exif php-sodium php-pdo php-mbstring php-dom \
     php-zip php-mysqli php-sqlite3 php-session php-bcmath \
-    php-common php-gd php-intl php-fileinfo php-pdo_mysql
-
-# https://github.com/codecasts/php-alpine/issues/21
-RUN ln -s /usr/bin/php7 /usr/bin/php
+    php-common php-gd php-intl php-fileinfo php-pdo_mysql \
+    php-tokenizer php-xml php-xmlwriter
 
 # install composer
 
