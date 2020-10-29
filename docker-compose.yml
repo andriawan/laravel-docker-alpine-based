@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+
+  db:
+     container_name: website-db
+     image: mysql:5.7
+     restart: always
+     volumes:
+       - ./mysql/:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: "password"
+       MYSQL_DATABASE: "db_sample"
+       MYSQL_USER: "root"
+       MYSQL_PASSWORD: "password"
+  web:
+    container_name: website-app
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - /var/log/docker-data/websample:/app/storage/logs
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=db_sample
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+    depends_on:
+       - db
+    ports:
+      - 80:8080

@@ -1,0 +1,6 @@
+vendor
+.git
+tests
+ana-database
+package.*
+mysql
